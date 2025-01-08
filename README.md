@@ -2,6 +2,9 @@
 
 # Laravel Logstash Log Channel
 
+[![Dependabot Updates](https://github.com/tomatophp/laravel-logstash/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/tomatophp/laravel-logstash/actions/workflows/dependabot/dependabot-updates)
+[![PHP Code Styling](https://github.com/tomatophp/laravel-logstash/actions/workflows/fix-php-code-styling.yml/badge.svg)](https://github.com/tomatophp/laravel-logstash/actions/workflows/fix-php-code-styling.yml)
+[![Tests](https://github.com/tomatophp/laravel-logstash/actions/workflows/tests.yml/badge.svg)](https://github.com/tomatophp/laravel-logstash/actions/workflows/tests.yml)
 [![Latest Stable Version](https://poser.pugx.org/tomatophp/laravel-logstash/version.svg)](https://packagist.org/packages/tomatophp/laravel-logstash)
 [![License](https://poser.pugx.org/tomatophp/laravel-logstash/license.svg)](https://packagist.org/packages/tomatophp/laravel-logstash)
 [![Downloads](https://poser.pugx.org/tomatophp/laravel-logstash/d/total.svg)](https://packagist.org/packages/tomatophp/laravel-logstash)
