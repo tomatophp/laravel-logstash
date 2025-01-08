@@ -1,12 +1,12 @@
-![Screenshot](https://raw.githubusercontent.com/tomatophp/laravel-logstash/master/art/screenshot.jpg)
+![Screenshot](https://raw.githubusercontent.com/tomatophp/laravel-logstash/master/arts/screenshot.jpg)
 
-# Laravel Logstash
+# Laravel Logstash Log Channel
 
 [![Latest Stable Version](https://poser.pugx.org/tomatophp/laravel-logstash/version.svg)](https://packagist.org/packages/tomatophp/laravel-logstash)
 [![License](https://poser.pugx.org/tomatophp/laravel-logstash/license.svg)](https://packagist.org/packages/tomatophp/laravel-logstash)
 [![Downloads](https://poser.pugx.org/tomatophp/laravel-logstash/d/total.svg)](https://packagist.org/packages/tomatophp/laravel-logstash)
 
-Elastic Logstash integration as a log driver for Laravel Apps
+Elastic Logstash log channel for Laravel apps
 
 ## Installation
 
@@ -14,16 +14,11 @@ Elastic Logstash integration as a log driver for Laravel Apps
 composer require tomatophp/laravel-logstash
 ```
 
-after install your package please run this command
+on your env add your host with port as a direct http connection on your env, and change the log channel to logstash
 
-```bash
-php artisan laravel-logstash:install
-```
-
-finally register the plugin on `/app/Providers/Filament/AdminPanelProvider.php`
-
-```php
-->plugin(\TomatoPHP\LaravelLogstash\LaravelLogstashPlugin::make())
+```dotenv
+LOGSTASH_HOST=https://log.tomatophp.com
+LOG_CHANNEL=logstash
 ```
 
 ## Publish Assets
@@ -32,24 +27,6 @@ you can publish config file by use this command
 
 ```bash
 php artisan vendor:publish --tag="laravel-logstash-config"
-```
-
-you can publish views file by use this command
-
-```bash
-php artisan vendor:publish --tag="laravel-logstash-views"
-```
-
-you can publish languages file by use this command
-
-```bash
-php artisan vendor:publish --tag="laravel-logstash-lang"
-```
-
-you can publish migrations file by use this command
-
-```bash
-php artisan vendor:publish --tag="laravel-logstash-migrations"
 ```
 
 ## Changelog
@@ -67,3 +44,31 @@ Please see [SECURITY](SECURITY.md) for more information about security.
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+
+## Testing
+
+if you like to run `PEST` testing just use this command
+
+```bash
+composer test
+```
+
+## Code Style
+
+if you like to fix the code style just use this command
+
+```bash
+composer format
+```
+
+## PHPStan
+
+if you like to check the code by `PHPStan` just use this command
+
+```bash
+composer analyse
+```
+
+## Other Filament Packages
+
+Checkout our [Awesome TomatoPHP](https://github.com/tomatophp/awesome)
