@@ -1,0 +1,66 @@
+{
+    "name": "tomatophp/laravel-logstash",
+    "type": "library",
+    "description": "Elastic Logstash integration for Laravel Apps",
+    "keywords": [
+        "php",
+        "laravel",
+        "template"
+    ],
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "TomatoPHP\\LaravelLogstash\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "TomatoPHP\\LaravelLogstash\\Tests\\": "tests/src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "TomatoPHP\\LaravelLogstash\\LaravelLogstashServiceProvider"
+            ]
+        }
+    },
+    "authors": [
+        {
+            "name": "Fady Mondy",
+            "email": "info@3x1.io"
+        }
+    ],
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "phpstan/extension-installer": true
+        }
+    },
+    "scripts": {
+        "testbench": "vendor/bin/testbench package:discover --ansi",
+        "analyse": "vendor/bin/phpstan analyse src tests",
+        "test": "vendor/bin/pest",
+        "test-coverage": "vendor/bin/pest --coverage",
+        "format": "vendor/bin/pint"
+    },
+    "require": {
+        "php": "^8.1|^8.2",
+        "tomatophp/console-helpers": "^1.1",
+        "laravel/framework": "*",
+        "monolog/monolog": "*",
+        "guzzlehttp/guzzle": "*"
+    },
+    "require-dev": {
+       "laravel/pint": "^1.18",
+       "nunomaduro/larastan": "^2.9",
+       "orchestra/testbench": "^9.5",
+       "pestphp/pest": "^2.36",
+       "pestphp/pest-plugin-laravel": "^2.4",
+       "phpstan/extension-installer": "^1.4",
+       "phpstan/phpstan-deprecation-rules": "^1.2",
+       "phpstan/phpstan-phpunit": "^1.4"
+    },
+    "version": "v1.0.0"
+}

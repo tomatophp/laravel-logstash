@@ -1,0 +1,12 @@
+providers:
+  - TomatoPHP\LaravelLogstash\LaravelLogstashServiceProvider
+workbench:
+  welcome: true
+  install: true
+  start: /
+  guard: testing
+  discovers:
+    web: true
+    api: false
+    commands: false
+    views: true

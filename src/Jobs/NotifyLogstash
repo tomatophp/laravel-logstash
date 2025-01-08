@@ -1,0 +1,33 @@
+<?php
+
+namespace TomatoPHP\LaravelLogstash\Jobs;
+
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Support\Facades\Http;
+use Monolog\LogRecord;
+
+class NotifyLogstash implements ShouldQueue
+{
+    use Queueable;
+
+    /**
+     * Create a new job instance.
+     */
+    public function __construct(
+        public LogRecord $record
+    )
+    {
+        //
+    }
+
+    /**
+     * Execute the job.
+     */
+    public function handle()
+    {
+        Http::withHeaders([
+            'Content-Type' => 'application/json',
+        ])->post(config('laravel-logstash.url'), $this->record);
+    }
+}
