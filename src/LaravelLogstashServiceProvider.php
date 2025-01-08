@@ -9,17 +9,12 @@ class LaravelLogstashServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        // Register generate command
-        $this->commands([
-            \TomatoPHP\LaravelLogstash\Console\LaravelLogstashInstall::class,
-        ]);
-
         // Register Config file
-        $this->mergeConfigFrom(__DIR__.'/../config/laravel-logstash.php', 'laravel-logstash');
+        $this->mergeConfigFrom(__DIR__ . '/../config/laravel-logstash.php', 'laravel-logstash');
 
         // Publish Config
         $this->publishes([
-            __DIR__.'/../config/laravel-logstash.php' => config_path('laravel-logstash.php'),
+            __DIR__ . '/../config/laravel-logstash.php' => config_path('laravel-logstash.php'),
         ], 'laravel-logstash-config');
     }
 

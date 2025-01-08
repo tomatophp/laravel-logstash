@@ -3,9 +3,10 @@
 namespace TomatoPHP\LaravelLogstash\Tests;
 
 use Illuminate\Support\Facades\Log;
+use TomatoPHP\LaravelLogstash\Jobs\NotifyLogstash;
 
 it('can log to logstash', function () {
-    $response = Log::info('Hello World');
+    Log::channel('logstash')->info('Log to logstash');
 
-    assertTrue($response);
+    expect(NotifyLogstash::class)->toBeClass();
 });

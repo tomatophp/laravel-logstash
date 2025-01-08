@@ -4,8 +4,8 @@ namespace TomatoPHP\LaravelLogstash\Jobs;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
-use Illuminate\Support\Facades\Http;
 use Monolog\LogRecord;
+use TomatoPHP\LaravelLogstash\Client\Logstash;
 
 class NotifyLogstash implements ShouldQueue
 {
@@ -16,8 +16,7 @@ class NotifyLogstash implements ShouldQueue
      */
     public function __construct(
         public LogRecord $record
-    )
-    {
+    ) {
         //
     }
 
@@ -26,8 +25,6 @@ class NotifyLogstash implements ShouldQueue
      */
     public function handle()
     {
-        Http::withHeaders([
-            'Content-Type' => 'application/json',
-        ])->post(config('laravel-logstash.url'), $this->record);
+        Logstash::send($this->record);
     }
 }

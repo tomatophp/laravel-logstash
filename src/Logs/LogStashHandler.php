@@ -2,6 +2,7 @@
 
 namespace TomatoPHP\LaravelLogstash\Logs;
 
+use Illuminate\Support\Facades\Http;
 use Monolog\Formatter\LogstashFormatter;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Level;
@@ -12,7 +13,7 @@ class LogStashHandler extends AbstractProcessingHandler
 {
     protected string $url;
 
-    public function __construct(int|string|Level $level = Level::Debug, bool $bubble = true)
+    public function __construct(int | string | Level $level = Level::Debug, bool $bubble = true)
     {
         parent::__construct($level, $bubble);
     }
@@ -24,6 +25,9 @@ class LogStashHandler extends AbstractProcessingHandler
 
     protected function write(LogRecord $record): void
     {
+        // Http::withHeaders([
+        //     'Content-Type' => 'application/json',
+        // ])->post(config('laravel-logstash.url'), $record);
         dispatch(new NotifyLogstash($record));
     }
 }

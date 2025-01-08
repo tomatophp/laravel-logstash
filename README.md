@@ -1,18 +1,19 @@
 ![Screenshot](https://raw.githubusercontent.com/tomatophp/laravel-logstash/master/art/screenshot.jpg)
 
-# Laravel logstash
+# Laravel Logstash
 
 [![Latest Stable Version](https://poser.pugx.org/tomatophp/laravel-logstash/version.svg)](https://packagist.org/packages/tomatophp/laravel-logstash)
 [![License](https://poser.pugx.org/tomatophp/laravel-logstash/license.svg)](https://packagist.org/packages/tomatophp/laravel-logstash)
 [![Downloads](https://poser.pugx.org/tomatophp/laravel-logstash/d/total.svg)](https://packagist.org/packages/tomatophp/laravel-logstash)
 
-Elastic Logstash integration for Laravel Apps
+Elastic Logstash integration as a log driver for Laravel Apps
 
 ## Installation
 
 ```bash
 composer require tomatophp/laravel-logstash
 ```
+
 after install your package please run this command
 
 ```bash
@@ -24,7 +25,6 @@ finally register the plugin on `/app/Providers/Filament/AdminPanelProvider.php`
 ```php
 ->plugin(\TomatoPHP\LaravelLogstash\LaravelLogstashPlugin::make())
 ```
-
 
 ## Publish Assets
 
