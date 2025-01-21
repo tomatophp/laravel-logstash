@@ -21,7 +21,7 @@ class NotifyLogstash implements ShouldQueue
      * Create a new job instance.
      */
     public function __construct(
-        public LogRecord $record
+        public array $record
     ) {
         //
     }

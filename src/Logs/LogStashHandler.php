@@ -25,9 +25,6 @@ class LogStashHandler extends AbstractProcessingHandler
 
     protected function write(LogRecord $record): void
     {
-        // Http::withHeaders([
-        //     'Content-Type' => 'application/json',
-        // ])->post(config('laravel-logstash.url'), $record);
-        dispatch(new NotifyLogstash($record));
+        dispatch(new NotifyLogstash($record->toArray()));
     }
 }

@@ -14,7 +14,7 @@ class Logstash
         $this->url = config('laravel-logstash.url');
     }
 
-    public static function send(LogRecord $record): bool
+    public static function send(array $record): bool
     {
         if ((new self)->url) {
             try {
