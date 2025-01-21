@@ -7,7 +7,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Monolog\LogRecord;
 use TomatoPHP\LaravelLogstash\Client\Logstash;
 
 class NotifyLogstash implements ShouldQueue

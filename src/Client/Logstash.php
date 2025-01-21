@@ -3,7 +3,6 @@
 namespace TomatoPHP\LaravelLogstash\Client;
 
 use Illuminate\Support\Facades\Http;
-use Monolog\LogRecord;
 
 class Logstash
 {
