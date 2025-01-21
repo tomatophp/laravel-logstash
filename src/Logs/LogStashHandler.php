@@ -2,7 +2,6 @@
 
 namespace TomatoPHP\LaravelLogstash\Logs;
 
-use Illuminate\Support\Facades\Http;
 use Monolog\Formatter\LogstashFormatter;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Level;
