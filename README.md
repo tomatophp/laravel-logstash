@@ -9,7 +9,14 @@
 [![License](https://poser.pugx.org/tomatophp/laravel-logstash/license.svg)](https://packagist.org/packages/tomatophp/laravel-logstash)
 [![Downloads](https://poser.pugx.org/tomatophp/laravel-logstash/d/total.svg)](https://packagist.org/packages/tomatophp/laravel-logstash)
 
-Elastic Logstash log channel for Laravel apps
+Elastic Logstash log channel for Laravel apps. Every log record is formatted with Monolog's `LogstashFormatter` and posted as JSON to a Logstash [HTTP input](https://www.elastic.co/guide/en/logstash/current/plugins-inputs-http.html), through a queued job by default.
+
+## Compatibility
+
+| Version | Laravel      | PHP   | Branch   |
+|---------|--------------|-------|----------|
+| 2.x     | 12.x, 13.x   | 8.2+  | `master` |
+| 1.x     | 10.x, 11.x   | 8.1+  | `v1`     |
 
 ## Installation
 
@@ -17,19 +24,55 @@ Elastic Logstash log channel for Laravel apps
 composer require tomatophp/laravel-logstash
 ```
 
-on your env add your host with port as a direct http connection on your env, and change the log channel to logstash
+The service provider is auto-discovered and registers a `logstash` log channel. Add the Logstash HTTP input URL (host with port) to your `.env` and use the channel:
 
 ```dotenv
-LOGSTASH_HOST=https://log.tomatophp.com
+LOGSTASH_HOST=https://logstash.example.com:8080
 LOG_CHANNEL=logstash
 ```
 
-## Publish Assets
+To keep your local log file as well, add `logstash` to the `stack` channel instead:
 
-you can publish config file by use this command
+```dotenv
+LOG_CHANNEL=stack
+LOG_STACK=single,logstash
+```
+
+When `LOGSTASH_HOST` is empty nothing is sent. A failing or unreachable Logstash never throws, so logging can not break your app.
+
+## Queue
+
+Records are sent by the `TomatoPHP\LaravelLogstash\Jobs\NotifyLogstash` job, so run a queue worker (or use the `sync` queue). To send directly over HTTP during the request, set `LOGSTASH_QUEUE=false`.
+
+## Configuration
+
+| Env                          | Default | Description                                      |
+|------------------------------|---------|--------------------------------------------------|
+| `LOGSTASH_HOST`              | `null`  | Logstash HTTP input URL                          |
+| `LOGSTASH_LEVEL`             | `debug` | Minimum level sent to Logstash                   |
+| `LOGSTASH_QUEUE`             | `true`  | Send through the queued job                      |
+| `LOGSTASH_QUEUE_CONNECTION`  | `null`  | Queue connection for the job (app default)       |
+| `LOGSTASH_QUEUE_NAME`        | `null`  | Queue name for the job (app default)             |
+| `LOGSTASH_TIMEOUT`           | `5`     | HTTP timeout in seconds                          |
+
+You can publish the config file with:
 
 ```bash
 php artisan vendor:publish --tag="laravel-logstash-config"
+```
+
+To customise the channel, define it yourself in `config/logging.php`; the package will not overwrite it. Channel keys override the package config:
+
+```php
+'logstash' => [
+    'driver' => 'custom',
+    'via' => \TomatoPHP\LaravelLogstash\Logs\LogStashLogger::class,
+    'url' => env('LOGSTASH_HOST'),
+    'level' => 'error',
+    'queue' => true,
+    'queue_connection' => 'redis',
+    'queue_name' => 'logs',
+],
 ```
 
 ## Changelog

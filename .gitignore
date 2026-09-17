@@ -5,7 +5,7 @@
 /public/storage
 /storage/*.key
 /storage/pail
-/vendor
+/vendor/
 .env
 .env.backup
 .env.production

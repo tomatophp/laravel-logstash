@@ -6,7 +6,6 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
 use TomatoPHP\LaravelLogstash\Client\Logstash;
 
 class NotifyLogstash implements ShouldQueue
@@ -14,22 +13,17 @@ class NotifyLogstash implements ShouldQueue
     use Dispatchable;
     use InteractsWithQueue;
     use Queueable;
-    use SerializesModels;
 
     /**
-     * Create a new job instance.
+     * @param  array<string, mixed>  $record  the Logstash-formatted record
      */
     public function __construct(
-        public array $record
-    ) {
-        //
-    }
+        public array $record,
+        public ?string $url = null,
+    ) {}
 
-    /**
-     * Execute the job.
-     */
-    public function handle()
+    public function handle(): void
     {
-        Logstash::send($this->record);
+        Logstash::send($this->record, $this->url);
     }
 }

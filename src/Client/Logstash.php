@@ -3,38 +3,33 @@
 namespace TomatoPHP\LaravelLogstash\Client;
 
 use Illuminate\Support\Facades\Http;
+use Throwable;
 
 class Logstash
 {
-    private ?string $url = null;
-
-    public function __construct()
+    /**
+     * Send a formatted log record to the Logstash HTTP input.
+     *
+     * Never throws: a Logstash outage must not break the application that is logging.
+     *
+     * @param  array<string, mixed>  $record
+     */
+    public static function send(array $record, ?string $url = null): bool
     {
-        $this->url = config('laravel-logstash.url');
-    }
+        $url = filled($url) ? $url : config('laravel-logstash.url');
 
-    public static function send(array $record): bool
-    {
-        if ((new self)->url) {
-            try {
-                $response = Http::withHeaders([
-                    'Content-Type' => 'application/json',
-                ])->post((new self)->url, $record);
-
-                if ($response->failed()) {
-                    throw new \Exception('Logstash URL is not reachable');
-
-                    return false;
-                }
-
-                return true;
-            } catch (\Exception $e) {
-                throw new \Exception('Logstash URL is not reachable');
-
-                return false;
-            }
+        if (blank($url)) {
+            return false;
         }
 
-        return false;
+        try {
+            return Http::asJson()
+                ->acceptJson()
+                ->timeout((int) config('laravel-logstash.timeout', 5))
+                ->post($url, $record)
+                ->successful();
+        } catch (Throwable) {
+            return false;
+        }
     }
 }
